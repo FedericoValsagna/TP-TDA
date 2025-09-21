@@ -19,17 +19,13 @@ def calcular_suma_estado(estado):
             suma += numeros[i]
     return suma
 
-def agregar_un_uno_a_la_derecha(estado):
+def agregar_un_uno_a_la_derecha(estado, nueva_posicion):
     # Encuentra el último 1, y si es posible, agrega otro 1 a su derecha.
     # Si no hay 1s, se asume que se está en el estado inicial de [1, 0, 0, ...].
-    try:
-        ultima_posicion_uno = [i for i, val in enumerate(estado) if val == 1][-1]
-    except IndexError:
-        ultima_posicion_uno = -1
 
-    if ultima_posicion_uno + 1 < A:
+    if nueva_posicion < A:
         nuevo_estado = list(estado)
-        nuevo_estado[ultima_posicion_uno + 1] = 1
+        nuevo_estado[nueva_posicion] = 1
         return nuevo_estado
     else:
         return -1
@@ -61,13 +57,15 @@ def resolver_con_backtracking(estado_actual):
     # posibles desde estado_actual:
     posicion_uno = obtener_posicion_del_uno(estado_actual)
     tomar_decision(estado_actual)
-
-    # Mientras se pueda agregar un uno a la derecha
-    estado_actual = agregar_un_uno_a_la_derecha(estado_actual)
+    # Avanzar la posición del uno
+    # no uso el mismo porque necesito el original para deshacer la decisión
+    nueva_posicion_uno = posicion_uno + 1
+    estado_actual = agregar_un_uno_a_la_derecha(estado_actual, nueva_posicion_uno)
     while estado_actual != -1:
         # 3. Tomar una decision (intentar una opción)
         tomar_decision(estado_actual)
-        estado_actual = agregar_un_uno_a_la_derecha(estado_actual)
+        nueva_posicion_uno = nueva_posicion_uno + 1
+        estado_actual = agregar_un_uno_a_la_derecha(estado_actual, nueva_posicion_uno)
 
     # 5. Retroceder (deshacer la decisión)
     estado_nuevo = deshacer_decision(posicion_uno)
