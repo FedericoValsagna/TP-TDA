@@ -27,14 +27,13 @@ def parse_test(line):
 
 def tests():
     with open(FILEPATH) as file:
-            numero_de_test = 1
-            for line in file:
-                  if len(line) < 2:
-                       continue
-                  array_input, output_esperado = parse_test(line)
-
-                  test(array_input, output_esperado, numero_de_test)
-                  numero_de_test += 1
+        numero_de_test = 1
+        for line in file:
+            if len(line) < 2:
+                continue
+            array_input, output_esperado = parse_test(line)
+            test(array_input, output_esperado, numero_de_test)
+            numero_de_test += 1
 
 
 tests()

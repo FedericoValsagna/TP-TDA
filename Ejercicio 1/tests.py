@@ -1,33 +1,42 @@
-from ej1 import ej1_wrapper, medio
+from ej1 import ej1_wrapper
+FILEPATH = "./tests.txt"
 
 
-def test(arr, valor_esperado, numero_de_test):
-    valor_obtenido = ej1_wrapper(arr)
-    assert valor_obtenido == valor_esperado
-    print(f"Test {numero_de_test} OK")
+def test(array_input, output_esperado, numero_de_test):
+    print(f"TEST {numero_de_test}:")
+    print(f"Arreglo: {array_input}")
+    print(f"Indice esperado: {output_esperado}")
+    output_obtenido = ej1_wrapper(array_input)
+    print(f"Indice obtenido: {output_obtenido}")
+    assert output_esperado == output_obtenido
+    print(f"TEST OK")
+    print("")
 
-def test_medio(valor_inicial, valor_final, valor_esperado, numero_de_test):
-    valor_obtenido = medio(valor_inicial, valor_final)
-    assert valor_obtenido == valor_esperado
-    print(f"Test {numero_de_test} OK")
+
+def parse_item(item):
+    item = item.split(",")
+    if len(item) > 1:
+        item = list(map(int, item))
+    else:
+        item = int(item[0])
+    return item
+
+def parse_test(line):
+    line.replace(" ", "")
+    items = line.split("/")
+    input = list(map(parse_item, items))
+    input_inicial, output_esperado = input[0], input[1]
+    return input_inicial, output_esperado
 
 def tests():
-    print("Test de funcion de medio")
-    test_medio(0, 7, 3, 1) # 0 1 2 3 4 5 6 7
-    test_medio(0, 6, 3, 2) # 0 1 2 3 4 5 6
-    test_medio(2, 8, 5, 3) # 0 1 2 3 4 5 6 7 8 
-    test_medio(2, 7, 4, 4) 
-    test_medio(3,5, 4, 5)
-    print("Test de ejercicio")
-    test([-1,0,1,3,4], 3, 1)
-    test([0,1,2,3,4,5], 2, 2)
-    test([-4,2,3,4,5], -1, 3)
-    test([-1,0,1,3], 3, 4)
-    test([0,1,2,3,4], 2, 5)
-    test([-4,2,3,4], -1, 6)
-    test([0,2,3,4,5,6], 0, 7)
-    test([0,2,3,4,5], 0, 8)
-    test([-1,0,1,2,4], 4, 9)
-    test([-1,0,1,2,3,5], 5, 10)
+    with open(FILEPATH) as file:
+        numero_de_test = 1
+        for line in file:
+            if len(line) < 2:
+                continue
+            array_input, output_esperado = parse_test(line)
+            test(array_input, output_esperado, numero_de_test)
+            numero_de_test += 1
+
 
 tests()
