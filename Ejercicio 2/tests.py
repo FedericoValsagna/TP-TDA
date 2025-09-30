@@ -24,19 +24,17 @@ def parse_test(line):
     input = list(map(parse_item, items))
     input_inicial, output_esperado = input[0], input[1:]
     return input_inicial, output_esperado
-       
 
-def read_file():
+def tests():
     with open(FILEPATH) as file:
             numero_de_test = 1
             for line in file:
+                  if len(line) < 2:
+                       continue
                   array_input, output_esperado = parse_test(line)
 
                   test(array_input, output_esperado, numero_de_test)
                   numero_de_test += 1
 
-def tests():
-    #test([3,-5, 7, -4, 1, -8, 3, -7, 5, -9, 5, -2, 4], [[3, -5, 7, -4, 1], [3, -7, 5], [5, -2, 4]], 1)
-    read_file()
 
 tests()
