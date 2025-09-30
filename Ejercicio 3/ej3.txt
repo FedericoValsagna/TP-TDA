@@ -1,0 +1,41 @@
+numeros # array de largo A
+A = length(numeros)
+suma_maxima = { 'suma': -inf; 'estado': None}
+
+// Los estados son cada posición de un array indicando con 1 si se incluye y con 0 si no se incluye.
+def tomar_decision(estado):
+   suma = sumar(numeros, estado)
+   si suma > suma_maxima['suma']:
+     suma_maxima['estado'] = estado
+     suma_maxima['suma'] = suma
+
+// En cada iteración de backtracking, recibe un array con un 1 y todos ceros, y se van agregando ceros a la derecha, eso nos asegura que los 0 a la izquierda ya se probaron en iteraciones anteriores.
+def deshacer_decision(posicion_uno):
+   if posicion_uno + 1 < A:
+      devolver un array de largo A con todos 0 salvo en posicion_uno + 1
+   return None // terminé de recorrer los números
+
+
+def resolver_con_backtracking(estado_actual):
+  // 1. Caso Base: Si el estado actual es una solución, terminamos.
+  if estado_actual is None: // no me quedan más estados por probar
+    return suma_maxima
+
+  // 2. Iterar sobre las opciones para cada opcion en las opciones posibles desde estado_actual:
+  posicion_uno = obtener la posición del uno(estado_actual)
+  suma = calcular_suma_estado(estado_actual)
+  hashmap(estado_actual, suma) // guardo la suma de este estado. Este en particular solo tiene un valor, el de la posicion del 1.
+  tomar_decision(estado_actual)
+
+  mientras queden lugares a la derecha:
+    estado_actual = agregar un uno a la derecha(estado_actual)
+    suma = calcular_suma_estado(estado_actual)
+    hashmap(estado_actual, suma) // guardo la suma de este estado.
+   // 3. Tomar una decision (intentar una opción)
+    tomar_decision(estado_actual)
+
+  // 5. Retroceder (deshacer la decision)
+    estado_nuevo = deshacer_decision(posicion_uno)
+
+  // 6. Si no encontramos una solución con ninguna opción
+  return resolver_con_backtracking(estado_nuevo)
