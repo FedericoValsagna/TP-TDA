@@ -31,7 +31,7 @@ El algoritmo está implementado en `Ejercicio 3/ej3.py` y utiliza backtracking p
 
 #### Ejercicio 1
 
-El archivo `tests.py` contiene casos de prueba que verifican:
+El archivo `tests.py` genera y comprueba casos donde:
 
 - Casos donde existe un punto fijo
 - Casos donde no existe un punto fijo
