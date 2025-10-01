@@ -1,6 +1,6 @@
-from ej1 import ej1_wrapper
-FILEPATH = "./tests.txt"
-
+from main import ej1_wrapper
+TEST_FILEPATH = "./datasets/tests.txt"
+TIMES_OUTPUT_FILEPATH = "./datasets/times.txt"
 
 def test(array_input, output_esperado, numero_de_test):
     print(f"TEST {numero_de_test}:")
@@ -22,14 +22,14 @@ def parse_item(item):
     return item
 
 def parse_test(line):
-    line.replace(" ", "")
+    line = line.replace(" ", "")
     items = line.split("/")
-    input = list(map(parse_item, items))
-    input_inicial, output_esperado = input[0], input[1]
+    input_inicial = parse_item(items[0])
+    output_esperado = int(items[1])
     return input_inicial, output_esperado
 
 def tests():
-    with open(FILEPATH) as file:
+    with open(TEST_FILEPATH) as file:
         numero_de_test = 1
         for line in file:
             if len(line) < 2:
