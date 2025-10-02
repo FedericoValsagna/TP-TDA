@@ -1,4 +1,16 @@
 def ej4(arreglo):
+    # Caso todos negativos
+    todos_negativos = True
+    for numero in arreglo:
+        if numero > 0:
+            todos_negativos = False
+            break
+    
+    if todos_negativos:
+        mayor_negativo = max(arreglo)
+        return [mayor_negativo], mayor_negativo
+
+
     suma_resultado = [0] * len(arreglo) 
     suma_actual = [0] * len(arreglo)
 
