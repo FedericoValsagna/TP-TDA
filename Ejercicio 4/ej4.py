@@ -1,15 +1,20 @@
 def ej4(arreglo):
-    # Caso todos negativos
+    # Caso todos negativos: La idea es que el algoritmo no funciona por como está planteado en este caso, pero de ser todos negativos entonces la
+    # resolución es trivial, el subarreglo de suma máxima debe ser el mayor elemento del subarreglo (Ya que por consigna debe tener al menos 1 elemento)
     todos_negativos = True
     for numero in arreglo:
         if numero > 0:
             todos_negativos = False
             break
-    
     if todos_negativos:
         mayor_negativo = max(arreglo)
         return [mayor_negativo], mayor_negativo
 
+
+    # Caso general: Se tienen 2 arreglos, uno que calcula el resultado óptimo para el subarreglo correspondiente y otro que calcule la sumatoria actual.
+    # Por sumatoria actual se entiende que cuando una sumatoria cae por debajo de 0 entonces arranca un nuevo subarreglo posible con sumatoria más alta.
+    # La ecuación de recurrencia de SR (Suma Resultado) es SR[i] = max(SA[i], SR[i-1]) (Donde SA es la sumatoria actual). Así mismo la ecuación de recurrencia
+    # de SA es SA[i] = SA[i - 1] + SA[i] Si la suma > 0, sino SA[i] = 0 arrancando una nueva sumatoria.
 
     suma_resultado = [0] * len(arreglo) 
     suma_actual = [0] * len(arreglo)
@@ -18,11 +23,11 @@ def ej4(arreglo):
     suma_actual[0] = arreglo[0]
 
     for i in range(1, len(arreglo)):
-        s = suma_actual[i-1] + arreglo[i]
-        if s <= 0:
+        suma_en_paso_actual = suma_actual[i-1] + arreglo[i]
+        if suma_en_paso_actual <= 0:
             suma_actual[i] = 0
         else:
-            suma_actual[i] = s
+            suma_actual[i] = suma_en_paso_actual
  
         suma_resultado[i] = max(suma_actual[i], suma_resultado[i -1])
     return reconstruccion(suma_resultado, suma_actual, arreglo), suma_resultado[-1]
