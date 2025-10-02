@@ -1,0 +1,54 @@
+def ej4(arreglo):
+    suma_resultado = [0] * len(arreglo) 
+    suma_actual = [0] * len(arreglo)
+
+    suma_resultado[0] = arreglo[0]
+    suma_actual[0] = arreglo[0]
+
+    for i in range(1, len(arreglo)):
+        # Suma actual debe poder ser < 0
+        s = suma_actual[i-1] + arreglo[i]
+        if s <= 0:
+            suma_actual[i] = 0
+        else:
+            suma_actual[i] = s
+ 
+        suma_resultado[i] = max(suma_actual[i], suma_resultado[i -1])
+    return reconstruccion(suma_resultado, suma_actual, arreglo), suma_resultado[-1]
+
+        
+def reconstruccion(suma_resultado, suma_actual, arreglo):
+    inicio = True
+    subarreglo = []
+    for i in range(len(arreglo) - 1,1 ,-1):
+        if inicio:
+            if suma_resultado[i] - arreglo[i] != suma_actual[i - 1]:
+                continue
+            subarreglo.append(arreglo[i])
+            inicio = False
+        else:
+            if suma_actual[i] - arreglo[i] == 0:
+                subarreglo.append(arreglo[i])
+                subarreglo.reverse()
+                return subarreglo
+            else:
+                subarreglo.append(arreglo[i])
+            
+
+
+arr = [3,-4,2,3,-4, 2,-2,2,4,-3]
+# arr = [4, -4, 2, -1, 4, -2, 5, -4, 2, 4]
+subarr = [2,3,-4, 2,-2,2,4]
+s = 7
+# s = 10
+
+subarr_obtenido, suma = ej4(arr)
+
+
+
+
+
+print(f"Arreglo esperado: {subarr}")
+print(f"Arreglo obtenido: {subarr_obtenido}")
+
+print(f"Suma esperada {s} | Obtenida: {suma}")
