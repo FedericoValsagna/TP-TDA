@@ -6,7 +6,6 @@ def ej4(arreglo):
     suma_actual[0] = arreglo[0]
 
     for i in range(1, len(arreglo)):
-        # Suma actual debe poder ser < 0
         s = suma_actual[i-1] + arreglo[i]
         if s <= 0:
             suma_actual[i] = 0
@@ -33,22 +32,3 @@ def reconstruccion(suma_resultado, suma_actual, arreglo):
                 return subarreglo
             else:
                 subarreglo.append(arreglo[i])
-            
-
-
-arr = [3,-4,2,3,-4, 2,-2,2,4,-3]
-# arr = [4, -4, 2, -1, 4, -2, 5, -4, 2, 4]
-subarr = [2,3,-4, 2,-2,2,4]
-s = 7
-# s = 10
-
-subarr_obtenido, suma = ej4(arr)
-
-
-
-
-
-print(f"Arreglo esperado: {subarr}")
-print(f"Arreglo obtenido: {subarr_obtenido}")
-
-print(f"Suma esperada {s} | Obtenida: {suma}")
