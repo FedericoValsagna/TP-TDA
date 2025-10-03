@@ -34,9 +34,9 @@ def ej4(arreglo):
             suma_actual[i] = suma_en_paso_actual
  
         suma_resultado[i] = max(suma_actual[i], suma_resultado[i -1])
-    print(f" A: {arreglo}")
-    print(f"SR: {suma_resultado}")
-    print(f"SA: {suma_actual}")
+    # print(f" A: {arreglo}")
+    # print(f"SR: {suma_resultado}")
+    # print(f"SA: {suma_actual}")
     return reconstruccion(suma_resultado, suma_actual, arreglo), suma_resultado[-1]
 
         
