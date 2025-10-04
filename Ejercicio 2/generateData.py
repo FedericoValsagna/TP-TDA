@@ -1,41 +1,32 @@
 import random
 import os
-from main import ej1_wrapper
+from main import ej2
 
 random.seed(2025)
 
 casos_base = [
-    "-1,0,1,3,4 / 3",
-    "0,1,2,3,4,5 / 2",
-    "-4,2,3,4,5 / -1",
-    "-1,0,1,3 / 3",
-    "0,1,3,4 / 1",
-    "-4,2,3,4 / -1",
-    "0,2,3,4,5,6 / 0",
-    "0,2,3,4,5 / 0",
-    "-1,0,1,2,4 / 4",
-    "-1,0,1,2,3,5 / 5"
+    "10, -5, 2, -1, 5 / 1",
+    "3, -5, 7, -3, 1, -8, 3, -7, 5, -9, 5, -2, 4 / 3",
+    "5, -8, 4, -3 / 1",
+    "-10, -20, 5, 5, 5/ 1",
+    "10, -5, 10, -5, 10, -25, 1, 1 / 2",
+    "-1, -2, -3, -4, -5 / 0",
+    #"4, -100, 100, -4, -2, 1, -8, 1, -1, 2 / 2"
 ]
 
-def generar_arreglo_ordenado(tamano):
+def generar_arreglo_aleatorio(tamano):
     arreglo = []
-    valor_inicial = random.randint(-tamano, tamano)
-    forzar_punto_fijo = random.choice([True, False, False, False])  # 25% de probabilidad
-    if forzar_punto_fijo :
-        valor_inicial = 0
-
-    for i in range(tamano):
-        arreglo.append(valor_inicial + i)
-
+    for _ in range(tamano):
+        arreglo.append(random.randint(-10, 10))
     return arreglo
 
 def generar_arreglos_de_prueba():
     casos_de_prueba = casos_base.copy()
-    tamanos = [5, 10, 1000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000]
+    tamanos = [100, 500, 1_000, 5_000, 10_000, 50_000, 100_000]
 
     for tamano in tamanos:
-        arreglo = generar_arreglo_ordenado(tamano)
-        resultado_esperado = ej1_wrapper(arreglo)
+        arreglo = generar_arreglo_aleatorio(tamano)
+        resultado_esperado = ej2(arreglo)
         caso_de_prueba = f"{', '.join(map(str, arreglo))} / {resultado_esperado}"
         casos_de_prueba.append(caso_de_prueba)
 
@@ -43,11 +34,11 @@ def generar_arreglos_de_prueba():
 
 def escribir_archivo_de_prueba(test_cases, filename):
     filepath = os.path.join(os.path.dirname(__file__), filename)
-    
+
     with open(filepath, 'w') as f:
         for test_case in test_cases:
             f.write(test_case + '\n')
-    
+
     print(f"Total casos de prueba generados: {len(test_cases)}")
 
 

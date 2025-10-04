@@ -1,5 +1,5 @@
 from wrapper import ejercicio3
-import math
+
 FILEPATH = "tests.txt"
 
 
