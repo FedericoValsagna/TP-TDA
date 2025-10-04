@@ -81,5 +81,5 @@ else:
     exit("El array de números no puede estar vacío.")
 
 resultado = resolver_con_backtracking(estado_inicial)
-print(f"La suma máxima es: {resultado['suma']}")
-print(f"El estado (secuencia contigua) que la produce es: {resultado['estado']}")
+# print(f"La suma máxima es: {resultado['suma']}")
+# print(f"El estado (secuencia contigua) que la produce es: {resultado['estado']}")
