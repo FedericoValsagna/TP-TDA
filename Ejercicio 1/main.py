@@ -1,6 +1,4 @@
 def ej1(arr, indice_inicial, indice_final):
-    # if indice_final - indice_inicial == 1:
-
 
     if indice_final == indice_inicial:
         if arr[indice_inicial] == indice_inicial:
@@ -20,9 +18,6 @@ def ej1(arr, indice_inicial, indice_final):
 
 def ej1_wrapper(arr):
     return ej1(arr, 0, len(arr) - 1)
-
-
-
 
 def medio(indice_inicial, indice_final):
     return (indice_final - indice_inicial) // 2 + indice_inicial
