@@ -5,9 +5,9 @@ FILEPATH = "./tests.txt"
 def test(array_input, output_esperado, numero_de_test):
     print(f"TEST {numero_de_test}:")
     print(f"Arreglo: {array_input}")
-    print(f"Subarreglos esperados: {output_esperado}")
+    print(f"Cantidad de intervalos esperados: {output_esperado}")
     output_obtenido = ej2(array_input)
-    print(f"Subarreglos obtenidos: {output_obtenido}")
+    print(f"Cantidad de intervalos obtenidos: {output_obtenido}")
     assert output_esperado == output_obtenido
     print(f"TEST OK")
     print("")
@@ -21,8 +21,8 @@ def parse_item(item):
 def parse_test(line):
     line.replace(" ", "")
     items = line.split("/")
-    input = list(map(parse_item, items))
-    input_inicial, output_esperado = input[0], input[1:]
+    input_inicial = parse_item(items[0])
+    output_esperado = int(items[1])
     return input_inicial, output_esperado
 
 def tests():
