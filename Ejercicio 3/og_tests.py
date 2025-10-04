@@ -11,7 +11,7 @@ def ejercicio3(numeros):
     for i in range(len(elementos_del_arreglo)):
         if elementos_del_arreglo[i] == 1:
             subarreglo.append(numeros[i])
-    return sumatoria, subarreglo
+    return subarreglo, sumatoria
 
 
 
