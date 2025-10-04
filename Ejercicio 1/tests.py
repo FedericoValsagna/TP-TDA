@@ -1,4 +1,5 @@
 import time
+import statistics
 from main import ej1_wrapper
 from generateData import generar_casos_de_prueba
 
@@ -31,7 +32,7 @@ def tests():
 
     with open(TIMES_OUTPUT_FILEPATH, 'w') as file:
         for tamaño, tiempos in times.items():
-            promedio = sum(tiempos) / len(tiempos)
-            file.write(f"{tamaño} {promedio}\n")
+            mediana = statistics.median(tiempos)
+            file.write(f"{tamaño} {mediana}\n")
 
 tests()
