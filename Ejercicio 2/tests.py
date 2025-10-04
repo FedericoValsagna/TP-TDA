@@ -1,5 +1,5 @@
 import time
-from ej2 import ej2
+from main import ej2
 from generateData import generar_casos_de_prueba
 
 TEST_FILEPATH = "./tests.txt"

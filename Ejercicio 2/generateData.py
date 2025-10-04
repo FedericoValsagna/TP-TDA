@@ -1,6 +1,6 @@
 import random
 import os
-from ej2 import ej2
+from main import ej2
 
 random.seed(2025)
 
