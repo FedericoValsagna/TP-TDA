@@ -1,4 +1,5 @@
-from og_tests import ejercicio3
+from wrapper import ejercicio3
+import math
 FILEPATH = "tests.txt"
 
 
