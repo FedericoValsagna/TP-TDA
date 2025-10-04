@@ -7,10 +7,14 @@ TIMES_OUTPUT_FILEPATH = "./times.txt"
 
 def test(array_input, output_esperado, numero_de_test):
     print(f"TEST {numero_de_test}:")
-    print(f"Cantidad de intervalos esperados: {output_esperado}")
+    if output_esperado is not None:
+        print(f"Cantidad de intervalos esperados: {output_esperado}")
+    else:
+        print("Test de volumen, no se conoce la cantidad de intervalos esperados.")
     output_obtenido = ej2(array_input)
     print(f"Cantidad de intervalos obtenidos: {output_obtenido}")
-    assert output_esperado == output_obtenido
+    if output_esperado is not None:
+        assert output_esperado == output_obtenido
     print(f"TEST OK")
     print("")
 

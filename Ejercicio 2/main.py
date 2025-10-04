@@ -1,5 +1,5 @@
 def ej2(arr):
-    subarreglos = []
+    cantidad_de_subarreglos = 0
     i = 0
     while i < len(arr):
         sumatoria = 0
@@ -10,11 +10,11 @@ def ej2(arr):
                     punto_de_quiebre = j
             sumatoria += arr[j]
         if sumatoria > 0:
-            subarreglos.append(arr[i:len(arr)])
+            cantidad_de_subarreglos += 1
             break
         elif punto_de_quiebre is not None:
-            subarreglos.append(arr[i: punto_de_quiebre])
+            cantidad_de_subarreglos += 1
             i = punto_de_quiebre + 1
         else:
             i += 1
-    return len(subarreglos)
+    return cantidad_de_subarreglos

@@ -1,9 +1,8 @@
 import random
-from main import ej2
 
-random.seed(3000)
+random.seed(2500)
 
-CASOS_POR_TAMANO = 3
+CASOS_POR_TAMANO = 6
 
 casos_base = [
     ([10, -5, 2, -1, 5], 1),
@@ -14,17 +13,20 @@ casos_base = [
     ([-1, -2, -3, -4, -5], 0)
 ]
 
-tamanos = [1_000_000, 2_000_000, 3_000_000, 4_000_000, 5_000_000]
+tamanos = [250_000, 500_000, 750_000, 1_000_000, 1_250_000, 1_500_000, 1_750_000, 2_000_000]
 
-def generar_arreglo_aleatorio(tamano):
-    return [random.randint(-10, 10) for _ in range(tamano)]
+def generar_arreglo_aleatorio(tamano, numero_test):
+    random_local = random.Random(2500 + numero_test)
+    return [random_local.randint(-100, 100) for _ in range(tamano)]
 
 def generar_casos_de_prueba():
     for caso in casos_base:
         yield caso
 
+    numero_test = 0
     for tamano in tamanos:
         for _ in range(CASOS_POR_TAMANO):
-            arreglo = generar_arreglo_aleatorio(tamano)
-            resultado_esperado = ej2(arreglo)
+            arreglo = generar_arreglo_aleatorio(tamano, numero_test)
+            resultado_esperado = None
             yield (arreglo, resultado_esperado)
+            numero_test += 1
