@@ -31,7 +31,7 @@ def generar_arreglo_ordenado(tamano):
 
 def generar_arreglos_de_prueba():
     casos_de_prueba = casos_base.copy()
-    tamanos = [5, 10, 1000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000]
+    tamanos = [5_000_000, 10_000_000, 15_000_000, 20_000_000, 25_000_000, 30_000_000, 35_000_000, 40_000_000, 45_000_000, 50_000_000]  # Tamaños grandes para pruebas de rendimiento
 
     for tamano in tamanos:
         arreglo = generar_arreglo_ordenado(tamano)
