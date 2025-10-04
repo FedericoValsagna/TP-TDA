@@ -1,4 +1,4 @@
-import ej3
+import main as ej3
 import math
 
 def ejercicio3(numeros):
