@@ -4,7 +4,7 @@
 * La Rosa, Martina - 97056
 * Valsagna Indri, Federico Martín - 106010
 * Riedel, Nicolás Agustín - 102130
-* La Torre, Gabriel - XXXXXX
+* La Torre, Gabriel - 87796
 
 ### Requerimientos previos 
 * Python 3.6 o superior
