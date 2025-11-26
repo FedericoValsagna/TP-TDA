@@ -21,12 +21,17 @@
 
     La capacidad de memoria en las aristas será la
     capacidad de los enlaces entre los nodos.
-    Aplicamos Ford-Fulkerson y nos dará el flujo
-    máximo del grafo. Sabiendo eso, debemos empezar a quitar aristas que llegan al sumidero, es decir, al nodo 10, hasta encontrar el corte mínimo que incluye a la fuente, el nodo 1 y su
-    flujo de salida es igual al flujo máximo.
     
-    Estos serán los nodos y las aristas mínimos para 
-    transferir los datos.
+    Reemplazaremos cada arista no dirigida, por dos aristas, una en un sentido y otra en el opuesto.
+    
+    Aplicamos Ford-Fulkerson y nos dará el flujo
+    máximo del grafo. En el grafo residual de 
+    Ford-Fulkerson, habrán aristas cuya recíproca
+    tenga la misma carga pero en sentido opuesto.
+    
+    Estas aristas deberán ser las que se eliminan
+    de la solución final para obtener la red con 
+    la menor cantidad de enlaces.
 
     b.  Incluir un Pseudocódigo del algoritmo a desarrollar (asumir que ya se cuenta con un algoritmo que resuelve Redes de Flujo).
     
@@ -44,29 +49,34 @@
         si flujo_maximo < 10:
             devolver [] # indicando que el problema no tiene solución
         
-        devolver hallar_minimo(V, flujo_maximo)
+        solucion = []
 
-    def hallar_minimo(V, residual):
-        limpiar_v(V, residual)
-        Ordenar las aristas que llegan a 10:
-            # seguir mañana
-
-
-    def limpiar_v(V, residual):
-    '''
-    Elimino los que tienen igual flujo en ambos lados
-    porque se anulan, sus tráficos se van a compensar
-    '''
-        por cada v de V:
-            v_i, v_j, c = v
-            si V[v_i, v_j] == -c:
-                eliminar_de_v(v,V)
-                eliminar_de_v((v_j,v_i),V) # elimino la inversa también
-
+        Para cada v de residual:
+            v_i, v_j, c_v = v
+            u = residual[v_j,v_i]
+            u_i, u_j, c_u = u
+            si c_v > c_u:
+                solucion.agregar(v)
+            sino:
+                solucion.agregar(u)
+            residual.eliminar(u)
+            residual.eliminar(v)
+        
+        devolver solucion
 
     c.  Detallar las estructuras de datos utilizadas. Justificar su elección.
 
-    Para guardar las aristas podría utilizar una matriz o un diccionario cuyoas valor v_i, v_j sean la clave.
+    Para el grafo y para el grafo residual,
+    usaremos una lista de adyacencias, donde
+    cada elemento de la lista representará un
+    nodo y el valor que almacena será una lista
+    de tuplas donde la primera posición
+    indicará el nodo destino y el segundo la
+    capacidad de la arista.
+    Esta representación se elige porque, en el grafo
+    propuesto, cada nodo tiene como mucho 4 aristas,
+    razón por la cual, una matriz sería poco
+    eficiente para representar este problema.
 
 3.  **Seguimiento:** Mostrar un ejemplo de seguimiento con un set de datos reducido
 4.  **Complejidad:** Realizar un análisis de la complejidad temporal a partir del pseudocódigo
