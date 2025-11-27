@@ -44,7 +44,9 @@
         # asumo flujos diccionario de diccionarios
         # o lista de adyacencias
         v_i, v_j, c = v
-        u_c = flujos[v_j][v_i] # si no existe es 0
+        u_c = 0
+        si v_j en flujos y v_i en flujos[v_j]:
+            u_c = flujos[v_j][v_i] # si no existe es 0
         u = (v_j, v_i, u_c)
         devolver u
 
@@ -116,14 +118,63 @@
     para no preocuparnos por procesar dos
     veces una arista
 
-3.  **Seguimiento:** Mostrar un ejemplo de seguimiento con un set de datos reducido
+3.  **Seguimiento:** 
+Mostrar un ejemplo de seguimiento con un set de datos reducido
 
+![alt text](img/ejemplo-reducidos.png)
+```
+grafo = {
+    1: [(2, 5), (3, 5)],  # Nodo 1 conecta con 2 (cap. 5) y 3 (cap. 5)
+    2: [(1, 5), (5, 2)],  # Nodo 2 conecta con 1 (cap. 5) y 5 (cap. 2)
+    3: [(1, 5), (4, 3), (5, 3), (6, 5)],  # Nodo 3 conecta con 1, 4, 5 y 6
+    4: [(3, 3), (6, 5)],  # Nodo 4 conecta con 3 y 6
+    5: [(2, 2), (3, 3), (6, 5)]  # Nodo 5 conecta con 2, 3 y 6
+    6: [(3, 5), (4, 5), (5, 5)]  # Nodo 6 conecta con 3, 4 y 5
+}
+```
+
+Ya tenemos el grafo expresado como una lista de adyacencias
+se lo pasamos al algoritmo que resuelva la red.
+
+![alt text](img/resolucion-reducido.png)
+
+Nos devolvió que el flujo máximo es 7.
+Si el archivo fuese de 10 MB, entonces no
+tendríamos solución, pero supongamos que
+es de 7.
+En este caso lo que haremos es evaluar cada
+arista del flujo.
+Cuya representación será algo así:
+
+```
+flujos = {
+    1: [(2, 2), (3, 5)],  # Nodo 1 conecta con 2 (con flujo 2) y 3 (con flujo 5)
+    2: [(5, 2)],  # Nodo 2 conecta con 5 (con flujo 2)
+    3: [(4, 3), (5, 2)],  # Nodo 3 conecta con 4 y 5
+    4: [(6, 3)],  # Nodo 4 conecta con 6
+    5: [(6, 4)]  # Nodo 5 conecta con 6
+}
+```
+
+Nótese que en esta representación no figuran
+las aristas que tienen flujo 0 ni las
+recíprocas.
+
+Con lo cual, nos queda claro que la solución
+es la iteración entre las aristas de la lista
+de flujos:
+
+```
+[(1, 2), (1, 3), (2, 5), (3, 4), (3, 5)
+(4, 6), (5, 6)] 
+```
 
 4.  **Complejidad:** Realizar un análisis de la complejidad temporal a partir del pseudocódigo
 
 
 5.  **Solución:**
     a.  Opción 1: resolver manualmente, indicando paso a paso cómo el algoritmo planteado encuentra los caminos de aumento y construye la red residual
+    
     b.  Opción 2: Desarrollar un programa que resuelva el modelo usando Python y una biblioteca de Redes de Flujo (propia o de terceros). Incluir todos los archivos necesarios para la ejecución. Incluir un archivo con el resultado obtenido.
 6.  **Informe de Resultados:**
     a.  Redactar un informe de la solución, indicando cómo se debe fragmentar y distribuir el archivo
