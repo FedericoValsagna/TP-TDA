@@ -153,7 +153,7 @@ grafo = {
 Ya tenemos el grafo expresado como una lista de adyacencias
 se lo pasamos al algoritmo que resuelva la red.
 
-![alt text](img/resolucion-reducido.png)
+![alt text](img/resolucion-reducido2.png)
 
 Nos devolvió que el flujo máximo es 7.
 Si el archivo fuese de 10 MB, entonces no
@@ -167,9 +167,8 @@ Cuya representación será algo así:
 flujos = {
     1: [(2, 2), (3, 5)],  # Nodo 1 conecta con 2 (con flujo 2) y 3 (con flujo 5)
     2: [(5, 2)],  # Nodo 2 conecta con 5 (con flujo 2)
-    3: [(4, 3), (5, 2)],  # Nodo 3 conecta con 4 y 5
-    4: [(6, 3)],  # Nodo 4 conecta con 6
-    5: [(6, 4)]  # Nodo 5 conecta con 6
+    3: [(5, 3), (2, 5)],  # Nodo 3 conecta con 5 y 2
+    5: [(6, 5)]  # Nodo 5 conecta con 6
 }
 ```
 
@@ -254,6 +253,8 @@ resultando en O(15 × 10) = O(150).
     a.  Opción 1: resolver manualmente, indicando paso a paso cómo el algoritmo planteado encuentra los caminos de aumento y construye la red residual
 
     b.  Opción 2: Desarrollar un programa que resuelva el modelo usando Python y una biblioteca de Redes de Flujo (propia o de terceros). Incluir todos los archivos necesarios para la ejecución. Incluir un archivo con el resultado obtenido.
+
+    Resuelto en ejercicio_2.py
 6.  **Informe de Resultados:**
     a.  Redactar un informe de la solución, indicando cómo se debe fragmentar y distribuir el archivo
     b.  Para resolver este problema, ¿es mejor utilizar Programación Lineal o Redes de Flujo? Justificar el criterio utilizado para comparar las dos técnicas
