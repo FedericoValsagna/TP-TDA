@@ -171,10 +171,69 @@ de flujos:
 
 4.  **Complejidad:** Realizar un análisis de la complejidad temporal a partir del pseudocódigo
 
+**Conversión a grafo dirigido:**
+    
+En el primer bucle, iteramos sobre cada arista
+del grafo original para agregar las aristas
+inversas. Esto tiene complejidad O(E), donde
+E es el número de aristas originales.
+
+**Ejecución de Ford-Fulkerson:**
+
+La llamada a resolver_red(V) ejecuta el
+algoritmo de Ford-Fulkerson. Asumiendo que
+se usa la implementación de Edmonds-Karp
+(que usa BFS para encontrar caminos de
+aumento), la complejidad es O(V × E²).
+
+**Verificación de factibilidad:**
+
+La comparación del flujo máximo con 10 es
+una operación constante O(1).
+
+**Procesamiento del grafo de flujos:**
+
+El bucle principal itera sobre cada arista
+del grafo de flujos. En el peor caso, todas
+las aristas del grafo dirigido tienen flujo,
+con lo cual serían 2E iteraciones.
+
+Dentro del bucle, la función obtener_complemento()
+tiene complejidad O(1) si usamos un diccionario
+de diccionarios para representar los flujos,
+ya que el acceso es directo mediante las claves.
+Si usáramos una lista de adyacencias, sería
+O(grado del nodo).
+
+Las verificaciones de pertenencia en los sets
+aristas_procesadas y solucion son O(1) en
+promedio, así como las inserciones.
+
+Con lo cual, este procesamiento tiene
+complejidad O(E) asumiendo diccionario de
+diccionarios, u O(E × V) con lista de
+adyacencias.
+
+**Complejidad total:**
+
+Sumando todas las partes:
+O(E) + O(V × E²) + O(1) + O(E) = O(V × E²)
+
+La complejidad está dominada por la ejecución
+de Ford-Fulkerson con Edmonds-Karp.
+
+Para el grafo del problema (V=10, E=15):
+O(10 × 15²) = O(2250)
+
+Si se usara Ford-Fulkerson con DFS
+y capacidades enteras, la complejidad
+sería O(E × f), donde
+f es el flujo máximo (10 MB en este caso),
+resultando en O(15 × 10) = O(150).
 
 5.  **Solución:**
     a.  Opción 1: resolver manualmente, indicando paso a paso cómo el algoritmo planteado encuentra los caminos de aumento y construye la red residual
-    
+
     b.  Opción 2: Desarrollar un programa que resuelva el modelo usando Python y una biblioteca de Redes de Flujo (propia o de terceros). Incluir todos los archivos necesarios para la ejecución. Incluir un archivo con el resultado obtenido.
 6.  **Informe de Resultados:**
     a.  Redactar un informe de la solución, indicando cómo se debe fragmentar y distribuir el archivo
