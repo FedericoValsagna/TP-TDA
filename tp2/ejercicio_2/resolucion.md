@@ -257,4 +257,21 @@ resultando en O(15 × 10) = O(150).
     Resuelto en ejercicio_2.py
 6.  **Informe de Resultados:**
     a.  Redactar un informe de la solución, indicando cómo se debe fragmentar y distribuir el archivo
+
+    El flujo máximo desde el nodo 1 al nodo 10 es: 10
+    Flujos por arista:
+    1 -> 2: 5
+    1 -> 3: 5
+    2 -> 6: 1
+    2 -> 5: 2
+    2 -> 9: 2
+    3 -> 4: 3
+    3 -> 7: 2
+    6 -> 9: 1
+    5 -> 7: 2
+    9 -> 10: 3
+    4 -> 8: 3
+    7 -> 10: 4
+    8 -> 10: 3
+
     b.  Para resolver este problema, ¿es mejor utilizar Programación Lineal o Redes de Flujo? Justificar el criterio utilizado para comparar las dos técnicas
