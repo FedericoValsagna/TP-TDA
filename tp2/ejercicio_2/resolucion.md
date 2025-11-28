@@ -6,8 +6,14 @@
     a.  Identificar supuestos, condiciones, limitaciones y/o premisas bajo los cuales funcionará el algoritmo desarrollado.
 
     - El grafo original es no dirigido. Se 
-    modelará como un grafo dirigido agregando
-    aristas en ambas direcciones.
+    recibe modelado como una lista de aristas
+    con su capacidad. Ver archivo 
+     grafico.csv para un
+    ejemplo del enunciado.
+    - Asumimos que no hay repeticiones de aristas en el input, es decir,
+    la no dirección es implícita.
+    - Se modelará como un grafo dirigido 
+    agregando aristas en ambas direcciones.
     - Las capacidades son simétricas en cada
     arista.
     - 1 actuará de fuente y es única.
@@ -50,15 +56,8 @@
         u = (v_j, v_i, u_c)
         devolver u
 
-    Sea V la lista de aristas del grafo
-
     def resolver(V):
-
-        Para cada v de V
-            v_i, v_j, c = v
-            Si v_i != 1 y v_j != 10:
-                Agregar a V (v_j, v_i, c)
-        
+            
         flujo_maximo, flujos = resolver_red(V)
 
         si flujo_maximo < 10:
@@ -76,7 +75,7 @@
                 flujo_neto = c_v - c_u
                 si flujo_neto != 0:
                     si flujo_neto > 0:
-                        nueva_v = v_i, v_j, flujo_neto
+                        nueva_v = (v_i, v_j, flujo_neto)
                         solucion.agregar(nueva_v)
                         aristas_procesadas.agregar((v_i, v_j))
                     sino:
@@ -85,6 +84,24 @@
                         aristas_procesadas.agregar((u_i, u_j))
         
         devolver solucion
+
+    Sea V la lista de aristas del grafo no dirigido
+
+    v_dirigida = {}
+    por cada (v_i, v_j, c) en V:
+        # guardo la arista actual como adyacencia
+        si v_i no en v_dirigida:
+            v_dirigida[v_i] = {}
+        v_dirigida[v_i][v_j] = c
+        # Agregar arista inversa v_j → v_i
+        # (excepto si involucra fuente/sumidero)
+        si v_i != 1 y v_j != 10:
+            # guardo al recíproca como adyacencia
+            si v_j no en v_dirigida:
+                v_dirigida[v_j] = {}
+            v_dirigida[v_j][v_i] = c
+
+    resolver(v_dirigida)
 
     c.  Detallar las estructuras de datos utilizadas. Justificar su elección.
 
