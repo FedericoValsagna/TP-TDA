@@ -91,6 +91,5 @@ Referencias :
 * https://www.geeksforgeeks.org/dsa/bin-packing-problem-minimize-number-of-used-bins/
 * https://en.wikipedia.org/wiki/First-fit-decreasing_bin_packing
 * https://en.wikipedia.org/wiki/Next-fit_bin_packing
-* file:///Users/nicolas.riedel/Downloads/17595570-MIT.pdf
 * https://dspace.mit.edu/handle/1721.1/57819
 * https://sites.cs.ucsb.edu/~suri/cs130b/BinPacking
