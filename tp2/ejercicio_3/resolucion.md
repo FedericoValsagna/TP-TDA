@@ -70,6 +70,19 @@ Se puede encontrar una demostración formal en  Vazirani, Vijay V. (2003), Appro
 
 La unica estructura de datos utilizada es un arreglo. Este es necesario para poder recibir los N contenedors como parametro.
 
+### 3
+Suponinendo una entrada de :
+[0.6, 0.5, 0.3, 0.7, 0.4]
+
+| Paso | Objeto ($s_i$) | Estado Previo (Espacio Libre) | Acción | Resultado |
+| :---: | :---: | :--- | :--- | :--- |
+| **1** | 0.6 | N/A (Inicio) | Se abre el **Recipiente 1**. | **Recipiente 1**: `[0.6]` <br> *(Libre: 0.4)* |
+| **2** | 0.5 | 0.4 | El objeto (0.5) **NO entra**. <br> Se cierra Rec. 1 y abre **Recipiente 2**. | **Recipiente 2**: `[0.5]` <br> *(Libre: 0.5)* |
+| **3** | 0.3 | 0.5 | El objeto (0.3) **SÍ entra** en Rec. 2. | **Recipiente 2**: `[0.5, 0.3]` <br> *(Libre: 0.2)* |
+| **4** | 0.7 | 0.2 | El objeto (0.7) **NO entra**. <br> Se cierra Rec. 2 y abre **Recipiente 3**. | **Recipiente 3**: `[0.7]` <br> *(Libre: 0.3)* |
+| **5** | 0.4 | 0.3 | El objeto (0.4) **NO entra**. <br> Se cierra Rec. 3 y abre **Recipiente 4**. | **Recipiente 4**: `[0.4]` <br> *(Libre: 0.6)* |
+
+Resultado : Se usaron 4 recipientes
 
 
 ----
