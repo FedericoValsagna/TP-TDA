@@ -199,9 +199,10 @@ E es el número de aristas originales.
 
 La llamada a resolver_red(V) ejecuta el
 algoritmo de Ford-Fulkerson. Asumiendo que
-se usa la implementación de Edmonds-Karp
-(que usa BFS para encontrar caminos de
-aumento), la complejidad es O(V × E²).
+se usa la implementación de Edmonds-Karp, 
+que usa BFS para encontrar caminos de
+aumento, la complejidad es O(V × E²). Siendo V
+el número de nodos.
 
 **Verificación de factibilidad:**
 
@@ -213,14 +214,15 @@ una operación constante O(1).
 El bucle principal itera sobre cada arista
 del grafo de flujos. En el peor caso, todas
 las aristas del grafo dirigido tienen flujo,
-con lo cual serían 2E iteraciones.
+con lo cual serían E iteraciones.
 
 Dentro del bucle, la función obtener_complemento()
 tiene complejidad O(1) si usamos un diccionario
 de diccionarios para representar los flujos,
 ya que el acceso es directo mediante las claves.
 Si usáramos una lista de adyacencias, sería
-O(grado del nodo).
+O(E) asumiento como peor caso que todos los
+nodos están conectados con todos.
 
 Las verificaciones de pertenencia en los sets
 aristas_procesadas y solucion son O(1) en
@@ -228,8 +230,10 @@ promedio, así como las inserciones.
 
 Con lo cual, este procesamiento tiene
 complejidad O(E) asumiendo diccionario de
-diccionarios, u O(E × V) con lista de
-adyacencias.
+como hicimos en el pseudocódigo,
+u O(E × V) con lista de adyacencias, que
+es como se suele representar este tipo de
+grafos.
 
 **Complejidad total:**
 
@@ -239,10 +243,8 @@ O(E) + O(V × E²) + O(1) + O(E) = O(V × E²)
 La complejidad está dominada por la ejecución
 de Ford-Fulkerson con Edmonds-Karp.
 
-Para el grafo del problema (V=10, E=15):
-O(10 × 15²) = O(2250)
-
-Si se usara Ford-Fulkerson con DFS
+Según lo visto en clase,
+si se usara Ford-Fulkerson con DFS
 y capacidades enteras, la complejidad
 sería O(E × f), donde
 f es el flujo máximo (10 MB en este caso),
