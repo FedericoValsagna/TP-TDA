@@ -1,4 +1,7 @@
 
+from pruebas.ejecutar_prueba_volument import ejecutar_prueba_volumen
+
+
 def next_fit(lista_objetos, capacidad_max=1):
     # Si no hay objetos, se necesitan 0 recipientes
     if not lista_objetos:
@@ -20,3 +23,8 @@ def next_fit(lista_objetos, capacidad_max=1):
     return contenedores_usados
 
 
+if __name__ == "__main__":
+    entradas = [100_000, 1_000_000, 10_000_000, 100_000_000]
+    for n in entradas:
+        tiempo = ejecutar_prueba_volumen(next_fit, n)
+        print(f"Next Fit - Entrada: {n} objetos - Tiempo de ejecución: {tiempo:.6f} segundos")
