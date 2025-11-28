@@ -24,7 +24,7 @@ def next_fit(lista_objetos, capacidad_max=1):
 
 
 if __name__ == "__main__":
-    entradas = [100_000, 1_000_000, 10_000_000, 100_000_000]
+    entradas = [100_000, 1_000_000, 10_000_000, 20_000_000, 30_000_000, 40_000_000, 50_000_000, 60_000_000, 70_000_000, 80_000_000, 90_000_000, 100_000_000]
     for n in entradas:
         tiempo = ejecutar_prueba_volumen(next_fit, n)
         print(f"Next Fit - Entrada: {n} objetos - Tiempo de ejecución: {tiempo:.6f} segundos")

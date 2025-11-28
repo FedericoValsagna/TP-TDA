@@ -97,7 +97,7 @@ Los sets de datos se generaron de manera aleatoria, esto es para poder tener un 
 Los mismos se pueden encontrar en el codigo y se generan al momento de ejecutar las pruebas.
 
 ### 6
-
+En informe, mostrar graficos y armar comparativo
 ----
 Referencias : 
 * https://en.wikipedia.org/wiki/Bin_packing_problem
