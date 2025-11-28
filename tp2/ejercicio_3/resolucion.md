@@ -84,6 +84,19 @@ Suponinendo una entrada de :
 
 Resultado : Se usaron 4 recipientes
 
+### 4
+Obtener la complejidad temporal es trivial, se trata de un loop para recorrer todo un array donde dentro de este loop se realizan operaciones de complejidad constante. 
+Por lo tanto el algoritmo tiene una complejidad O(N).
+
+Comparandolo con el tamaño de soluciones factibles (n^n), podemos ver la poca viabilidad temporal que tendria implementar una fuerza bruta : 
+
+![alt text](img/image.png)
+### 5 
+Los sets de datos se generaron de manera aleatoria, esto es para poder tener un gran volumen y poder medir los tiempos de una manera más adecuada.
+
+Los mismos se pueden encontrar en el codigo y se generan al momento de ejecutar las pruebas.
+
+### 6
 
 ----
 Referencias : 
