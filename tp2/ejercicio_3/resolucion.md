@@ -1,0 +1,83 @@
+## 1
+
+### 1.A
+
+Para que el algoritmo este bien definido, debemos establecer los siguientes supuesto : 
+1. Atomicidad : Los objetos a ubicar son indivisibles. Es decir, no se pueden partir para poner una parte en un recipiente y otra parte en otro.
+2. Homogeneidad : Todos los recipientes son identicos y tienen una capacidad *C* == 1
+3. Validez de la entrada : Todos los objetos recibidos en la entrada ocupan una capacidad "S" entre 0 y 1.
+
+
+### 1.B
+
+El espacio de soluciones posibles es inmensamente grande, ya que la cantidad de formas de agrupar n objetos crece de manera combinatoria a medida que aumenta el tamaño de entrada.
+
+Si tenemos N objetos, y en el peor de los casos deberiamos usar N recipientes, entonces la combinacion es : 
+
+Total: $n \times n \times ... = n^n$
+
+Esta complejidad computacional hace poco practico buscar la solución exacta, lo que justifica la necesidad de utilizar un algoritmo de aproximación eficiente.
+
+## 2
+### 2.A
+El problema planteado en esta consigna es un problema conocido en el mundo de la computación. Para resolverlo vamos a aplicar la tecnica "next-fit", una tecnica simple y lineal.
+
+Se van insertando los elementos en los contenedores en orden, cuando este contenedor se llena pasamos al siguiente y asi susebiamente.
+
+Podemos plantear el pseudo-codigo como : 
+
+```
+next_fit(lista_objetos):
+    // Si no hay objetos, se necesitan 0 recipientes
+    SI lista_objetos ESTÁ VACÍA:
+      RETORNAR 0
+
+    // Inicializamos el primer recipiente
+    contenedores_usados = 1
+    espacio_disponible = 1 //Capacidad inicial de los contenedores.
+
+    PARA CADA objeto EN lista_objetos:
+        
+        SI objeto <= espacio_disponible ENTONCES:
+            espacio_disponible -= objeto
+        
+        SINO:
+            // El objeto no entra, pasamos al siguiente recipiente
+            contenedores_usados += 1 
+            // El nuevo recipiente contiene el objeto actual
+            espacio_disponible = capacidad_max - objeto
+        
+        FIN SI
+
+    FIN PARA
+
+    RETORNAR contenedores_usados
+```
+### 2.B
+
+
+La base de la desmotración reside en la imposibilidad del algoritmo de dejar dos recipientos consecutivos con "la mitad o menos" de ocupación.
+
+Si tenes 2 recipientos consecutivos n y n+1:
+* Si el algoritmo tuvo que utilizar el recipiente n+1, significa que el elemento no cabia en N.
+* Si N hubiera estado ocupado solo hasta la mitad, la unica razon para utilizar N+1 es que el nuevo elemento sea mayor a 0.5
+* Por lo tanto, es imposible tener 2 recipientes consecutivos con una suma de capacidad desperdiciada > 1
+* Llevando este ultimo paso a el total de elementos, podemos decir con seguridad que la cantidad de contenedores utilizada es menor a el doble del optimo.
+
+Se puede encontrar una demostración formal en  Vazirani, Vijay V. (2003), Approximation Algorithms, Berlin: Springer.
+
+### 2.C
+
+La unica estructura de datos utilizada es un arreglo. Este es necesario para poder recibir los N contenedors como parametro.
+
+
+
+----
+Referencias : 
+* https://en.wikipedia.org/wiki/Bin_packing_problem
+* https://www.geeksforgeeks.org/dsa/bin-packing-problem-minimize-number-of-used-bins/
+* https://en.wikipedia.org/wiki/First-fit-decreasing_bin_packing
+* https://en.wikipedia.org/wiki/Next-fit_bin_packing
+* file:///Users/nicolas.riedel/Downloads/17595570-MIT.pdf
+* https://dspace.mit.edu/handle/1721.1/57819
+* https://sites.cs.ucsb.edu/~suri/cs130b/BinPacking
