@@ -250,28 +250,30 @@ f es el flujo máximo (10 MB en este caso),
 resultando en O(15 × 10) = O(150).
 
 5.  **Solución:**
-    a.  Opción 1: resolver manualmente, indicando paso a paso cómo el algoritmo planteado encuentra los caminos de aumento y construye la red residual
 
-    b.  Opción 2: Desarrollar un programa que resuelva el modelo usando Python y una biblioteca de Redes de Flujo (propia o de terceros). Incluir todos los archivos necesarios para la ejecución. Incluir un archivo con el resultado obtenido.
+a.  Opción 1: resolver manualmente, indicando paso a paso cómo el algoritmo planteado encuentra los caminos de aumento y construye la red residual
 
-    Resuelto en ejercicio_2.py
+b.  Opción 2: Desarrollar un programa que resuelva el modelo usando Python y una biblioteca de Redes de Flujo (propia o de terceros). Incluir todos los archivos necesarios para la ejecución. Incluir un archivo con el resultado obtenido.
+
+Resuelto en ejercicio_2.py
 6.  **Informe de Resultados:**
-    a.  Redactar un informe de la solución, indicando cómo se debe fragmentar y distribuir el archivo
 
-    El flujo máximo desde el nodo 1 al nodo 10 es: 10
-    Flujos por arista:
-    1 -> 2: 5
-    1 -> 3: 5
-    2 -> 6: 1
-    2 -> 5: 2
-    2 -> 9: 2
-    3 -> 4: 3
-    3 -> 7: 2
-    6 -> 9: 1
-    5 -> 7: 2
-    9 -> 10: 3
-    4 -> 8: 3
-    7 -> 10: 4
-    8 -> 10: 3
+a.  Redactar un informe de la solución, indicando cómo se debe fragmentar y distribuir el archivo
 
-    b.  Para resolver este problema, ¿es mejor utilizar Programación Lineal o Redes de Flujo? Justificar el criterio utilizado para comparar las dos técnicas
+El flujo máximo desde el nodo 1 al nodo 10 es: 10
+Flujos por arista:
+1 -> 2: 5 MB
+1 -> 3: 5 MB
+2 -> 6: 1 MB
+2 -> 5: 2 MB
+2 -> 9: 2 MB
+3 -> 4: 3 MB
+3 -> 7: 2 MB
+6 -> 9: 1 MB
+5 -> 7: 2 MB
+9 -> 10: 3 MB
+4 -> 8: 3 MB
+7 -> 10: 4 MB
+8 -> 10: 3 MB
+
+b.  Para resolver este problema, ¿es mejor utilizar Programación Lineal o Redes de Flujo? Justificar el criterio utilizado para comparar las dos técnicas
