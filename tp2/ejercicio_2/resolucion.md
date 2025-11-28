@@ -3,6 +3,7 @@
 ## PROBLEMA 2 - Redes de flujo
 
 1.  **Análisis:**
+
     a.  Identificar supuestos, condiciones, limitaciones y/o premisas bajo los cuales funcionará el algoritmo desarrollado.
 
     - El grafo original es no dirigido. Se 
@@ -45,6 +46,8 @@
     la menor cantidad de enlaces.
 
     b.  Incluir un Pseudocódigo del algoritmo a desarrollar (asumir que ya se cuenta con un algoritmo que resuelve Redes de Flujo).
+
+    ```
     
     def obtener_complemento(flujos, v):
         # asumo flujos diccionario de diccionarios
@@ -102,38 +105,48 @@
             v_dirigida[v_j][v_i] = c
 
     resolver(v_dirigida)
+    ```
 
     c.  Detallar las estructuras de datos utilizadas. Justificar su elección.
 
-    Para el grafo, usaremos una lista de adyacencias, donde
+    Para el grafo, usaremos un diccionario para
+    representar la lista de adyacencias, donde
     cada elemento de la lista representará un
-    nodo y el valor que almacena será una lista
-    de tuplas donde la primera posición
-    indicará el nodo destino y el segundo la
-    capacidad de la arista.
-    Esta representación se elige porque, 
-    en el grafo propuesto, cada nodo tiene 
-    como mucho 4 aristas,
-    razón por la cual, una matriz sería poco
-    eficiente para representar este problema.
+    nodo y el valor que almacena será un
+    diccionario donde la clave indicará el nodo
+    destino y el valor la capacidad de la arista.
+    Esta representación se elige porque, en el
+    grafo propuesto, cada nodo tiene como mucho
+    4 aristas, razón por la cual, una matriz
+    sería poco eficiente para representar este
+    problema. Usar listas propiamente dichas,
+    con nodos como claves y valores que sean
+    tuplas de (nodo destino, capacidad) nos
+    haría caer en iteraciones que, si bien
+    serían cortas, son innecesarias con el uso
+    de diccionarios.
+    
+    Para el grafo de flujos, repetiremos la
+    estructura de un diccionario de diccionarios.
+    En el primer nivel la clave sería el nodo
+    de origen y en el segundo, el nodo de destino,
+    el valor sería el flujo. Esto permitiría
+    buscar la arista recíproca de manera muy
+    rápida. Nótese que algunas librerías no
+    devuelven las aristas con flujo cero, con
+    lo cual usar un diccionario no sería
+    necesario y se podría iterar en una lista
+    sin necesidad de comparar con el flujo de
+    la arista recíproca.
+    
+    Adicionalmente, usamos un set 'aristas_procesadas'
+    para evitar procesar dos veces la misma arista
+    del grafo de flujos, ya que cada arista
+    original genera dos líneas dirigidas (u→v y v→u).
+    
+    Para la solución armamos un set de tuplas para
+    no preocuparnos por procesar dos veces una arista.
 
-    Para el grafo de flujos, podríamos usar una
-    lista de adyacencias o un dicionario de
-    diccionarios. En el primer nivel
-    la clave sería 
-    el nodo de origen y en el segundo, el nodo
-    de destino, el valor sería el flujo.
-    Esto permitiría buscar la arista recíproca
-    de manera muy rápida.
-
-    Adicionalmente, usamos un set 'aristas_procesadas' 
-    para evitar procesar dos veces la misma arista del 
-    grafo de flujos, ya que cada arista original genera
-    dos dirigidas (u→v y v→u).
-
-    Para la solución armamos un set de tuplas
-    para no preocuparnos por procesar dos
-    veces una arista
 
 3.  **Seguimiento:** 
 Mostrar un ejemplo de seguimiento con un set de datos reducido
@@ -141,12 +154,12 @@ Mostrar un ejemplo de seguimiento con un set de datos reducido
 ![alt text](img/ejemplo-reducidos.png)
 ```
 grafo = {
-    1: [(2, 5), (3, 5)],  # Nodo 1 conecta con 2 (cap. 5) y 3 (cap. 5)
-    2: [(1, 5), (5, 2)],  # Nodo 2 conecta con 1 (cap. 5) y 5 (cap. 2)
-    3: [(1, 5), (4, 3), (5, 3), (6, 5)],  # Nodo 3 conecta con 1, 4, 5 y 6
-    4: [(3, 3), (6, 5)],  # Nodo 4 conecta con 3 y 6
-    5: [(2, 2), (3, 3), (6, 5)]  # Nodo 5 conecta con 2, 3 y 6
-    6: [(3, 5), (4, 5), (5, 5)]  # Nodo 6 conecta con 3, 4 y 5
+    1: {2: 5, 3: 5},  # Nodo 1 conecta con 2 (cap. 5) y 3 (cap. 5)
+    2: {1: 5, 5: 2},  # Nodo 2 conecta con 1 (cap. 5) y 5 (cap. 2)
+    3: {1: 5, 4: 3, 5: 3, 6: 5},  # Nodo 3 conecta con 1, 4, 5 y 6
+    4: {3: 3, 6: 5},  # Nodo 4 conecta con 3 y 6
+    5: {2: 2, 3: 3, 6: 5},  # Nodo 5 conecta con 2, 3 y 6
+    6: {3: 5, 4: 5, 5: 5}  # Nodo 6 conecta con 3, 4 y 5
 }
 ```
 
@@ -165,10 +178,10 @@ Cuya representación será algo así:
 
 ```
 flujos = {
-    1: [(2, 2), (3, 5)],  # Nodo 1 conecta con 2 (con flujo 2) y 3 (con flujo 5)
-    2: [(5, 2)],  # Nodo 2 conecta con 5 (con flujo 2)
-    3: [(5, 3), (2, 5)],  # Nodo 3 conecta con 5 y 2
-    5: [(6, 5)]  # Nodo 5 conecta con 6
+    1: {2: 2, 3: 5},  # Nodo 1 conecta con 2 (con flujo 2) y 3 (con flujo 5)
+    2: {5: 2},  # Nodo 2 conecta con 5 (con flujo 2)
+    3: {5: 3, 2: 5},  # Nodo 3 conecta con 5 y 2
+    5: {6: 5}  # Nodo 5 conecta con 6
 }
 ```
 
@@ -256,12 +269,15 @@ a.  Opción 1: resolver manualmente, indicando paso a paso cómo el algoritmo pl
 b.  Opción 2: Desarrollar un programa que resuelva el modelo usando Python y una biblioteca de Redes de Flujo (propia o de terceros). Incluir todos los archivos necesarios para la ejecución. Incluir un archivo con el resultado obtenido.
 
 Resuelto en ejercicio_2.py
+
 6.  **Informe de Resultados:**
 
 a.  Redactar un informe de la solución, indicando cómo se debe fragmentar y distribuir el archivo
 
 El flujo máximo desde el nodo 1 al nodo 10 es: 10
+
 Flujos por arista:
+```
 1 -> 2: 5 MB
 1 -> 3: 5 MB
 2 -> 6: 1 MB
@@ -275,5 +291,47 @@ Flujos por arista:
 4 -> 8: 3 MB
 7 -> 10: 4 MB
 8 -> 10: 3 MB
+```
 
 b.  Para resolver este problema, ¿es mejor utilizar Programación Lineal o Redes de Flujo? Justificar el criterio utilizado para comparar las dos técnicas
+
+Para comparar ambas técnicas, vamos a considerar
+el modelado del problema, la complejidad
+algorítmica y la implementación.
+
+En cuanto al modelado, el problema se adapta
+naturalmente a una red de flujo máximo donde
+las aristas representan enlaces de comunicación
+y las capacidades son los MB que puede transportar
+cada enlace. La conversión es directa. Con
+Programación Lineal tuvimos que definir
+variables de decisión para el flujo en cada
+arista, una función objetivo para maximizar
+el flujo total que sale de la fuente, y
+restricciones de conservación de flujo,
+capacidades y no negatividad. Esto hace que
+el modelado sea más complejo.
+
+Respecto a la complejidad, con Redes de Flujo
+usando Edmonds-Karp tenemos O(V × E²), mientras
+que con Programación Lineal el método Simplex
+tiene O(2^n) en el peor caso, aunque en la
+práctica suele ser polinomial.
+
+En cuanto a la implementación, para Redes
+de Flujo existen bibliotecas especializadas
+como NetworkX con implementaciones optimizadas
+de Ford-Fulkerson, mientras que con Programación
+Lineal hay que usar solvers más genéricos
+como GLPK o Gurobi que no aprovechan la
+estructura especial del problema.
+
+En conclusión, para este problema es mejor
+usar Redes de Flujo porque el modelado es
+más intuitivo, la complejidad es mejor y
+la implementación es más simple. Programación
+Lineal sería preferible solo si tuviéramos
+restricciones adicionales que no se pueden
+modelar fácilmente como flujo, por ejemplo
+costos variables o restricciones de múltiples
+recursos simultáneos.
