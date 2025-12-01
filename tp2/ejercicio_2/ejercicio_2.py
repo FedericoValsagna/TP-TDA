@@ -29,7 +29,7 @@ def leer_grafo(archivo, fuente=1, sumidero=10):
                 adyacencias[destino] = capacidad
                 grafo[origen] = adyacencias
 
-                if origen != sumidero and destino != fuente:
+                if origen != fuente and destino != sumidero:
                     adyacencias_rev = grafo.get(destino, {})
                     adyacencias_rev[origen] = capacidad
                     grafo[destino] = adyacencias_rev
@@ -42,11 +42,11 @@ def leer_grafo(archivo, fuente=1, sumidero=10):
                 adyacencias[destino] = capacidad
                 grafo[origen] = adyacencias
 
-                if origen != sumidero and destino != fuente:
+                if origen != fuente and destino != sumidero:
                     adyacencias_rev = grafo.get(destino, {})
                     adyacencias_rev[origen] = capacidad
                     grafo[destino] = adyacencias_rev
-            
+        # print(f"Grafo formado '{grafo}'")
         return grafo
         
     except FileNotFoundError:
@@ -70,7 +70,8 @@ def resolver_ford_fulkerson(grafo, fuente, sumidero):
             capacidad = grafo[u][v]
             G.add_edge(u, v, capacity=capacidad)
 
-    flujo_valor, flujo_dict = nx.maximum_flow(G, fuente, sumidero, flow_func=nx.algorithms.flow.edmonds_karp)
+    flujo_valor, flujo_dict = nx.maximum_flow(G, fuente, sumidero, 
+                                              flow_func=nx.algorithms.flow.shortest_augmenting_path)
     return flujo_valor, flujo_dict
 
 def resolver_ejercicio_2(archivo, fuente=1, sumidero=10):
@@ -98,7 +99,11 @@ def main():
     
     flujo_valor, flujo_dict = resolver_ejercicio_2(archivo_entrada, fuente, sumidero)
 
+    # Contar cantidad de aristas usadas (con flujo > 0)
+    aristas_usadas = sum(1 for u in flujo_dict for v in flujo_dict[u] if flujo_dict[u][v] > 0)
+
     print(f"El flujo máximo desde el nodo {fuente} al nodo {sumidero} es: {flujo_valor}")
+    print(f"Cantidad de aristas usadas: {aristas_usadas}")
     print("Flujos por arista:")
     for u in flujo_dict:
         for v in flujo_dict[u]:
