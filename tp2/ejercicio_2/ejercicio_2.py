@@ -73,14 +73,66 @@ def resolver_ford_fulkerson(grafo, fuente, sumidero):
     flujo_valor, flujo_dict = nx.maximum_flow(G, fuente, sumidero, 
                                               flow_func=nx.algorithms.flow.shortest_augmenting_path)
     return flujo_valor, flujo_dict
+    
+def minimizar_aristas_greedy(grafo, fuente, sumidero, flujo_objetivo):
+    """
+    Estrategia greedy: comenzar con todas las aristas y eliminar una por una
+    las que no afecten el flujo máximo.
+    """
+    grafo_actual = {}
+    for u in grafo:
+        grafo_actual[u] = grafo[u].copy()
+    
+    flujo_valor, flujo_dict = resolver_ford_fulkerson(grafo_actual, fuente, sumidero)
+    
+    # Obtener lista de aristas usadas, ordenadas por flujo (menor a mayor)
+    aristas_con_flujo = [(u, v, flujo_dict[u][v]) for u in flujo_dict 
+                         for v in flujo_dict[u] if flujo_dict[u][v] > 0]
+    aristas_con_flujo.sort(key=lambda x: x[2])
+    
+    # Intentar eliminar cada arista
+    for u, v, _ in aristas_con_flujo:
+        if u in grafo_actual and v in grafo_actual[u]:
+
+            capacidad_original = grafo_actual[u][v]
+            
+            # Eliminar arista
+            del grafo_actual[u][v]
+            if not grafo_actual[u]:
+                del grafo_actual[u]
+            
+            # Verificar si aún alcanzamos el flujo objetivo
+            try:
+                flujo_test, flujo_dict_test = resolver_ford_fulkerson(grafo_actual, fuente, sumidero)
+                
+                if flujo_test >= flujo_objetivo:
+                    # Podemos vivir sin esta arista
+                    flujo_dict = flujo_dict_test
+                else:
+                    # Necesitamos esta arista, restaurarla
+                    if u not in grafo_actual:
+                        grafo_actual[u] = {}
+                    grafo_actual[u][v] = capacidad_original
+            except:
+                # Error al calcular flujo, restaurar arista
+                if u not in grafo_actual:
+                    grafo_actual[u] = {}
+                grafo_actual[u][v] = capacidad_original
+    
+    return flujo_dict
 
 def resolver_ejercicio_2(archivo, fuente=1, sumidero=10):
     # Leer grafo
     grafo = leer_grafo(archivo, fuente, sumidero)
     
-    # si bien la librería tiene un modo de resolver grafos no digiridos,
-    # vamos a respetar el pseudocódigo para hacer el proceso visto en clase
-    flujo_valor, flujo_dict = resolver_ford_fulkerson(grafo, fuente, sumidero)
+    # Primero obtener el flujo máximo posible
+    flujo_max, _ = resolver_ford_fulkerson(grafo, fuente, sumidero)
+    print(f"Flujo máximo posible: {flujo_max}")
+    
+    # Minimizar aristas según la estrategia elegida
+    flujo_dict = minimizar_aristas_greedy(grafo, fuente, sumidero, flujo_max)
+    
+    flujo_valor = sum(flujo_dict.get(fuente, {}).values())
     return flujo_valor, flujo_dict
 
 def main():
