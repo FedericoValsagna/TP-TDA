@@ -20,7 +20,7 @@ def leer_grafo(archivo, fuente=1, sumidero=10):
             
             # Verificar si la primera línea es header o datos
             if header and header[0].isdigit():
-                # No es header, procesarla como dato
+                # No es header procesarla como dato
                 origen, destino, capacidad = header
                 origen = int(origen)
                 destino = int(destino)
@@ -76,45 +76,48 @@ def resolver_ford_fulkerson(grafo, fuente, sumidero):
     
 def minimizar_aristas_greedy(grafo, fuente, sumidero, flujo_objetivo):
     """
-    Estrategia greedy: comenzar con todas las aristas y eliminar una por una
+    Estrategia greedy: comenzar con todas las aristas de
+    menor a mayor flujo y eliminar una por una
     las que no afecten el flujo máximo.
     """
     grafo_actual = {}
     for u in grafo:
         grafo_actual[u] = grafo[u].copy()
     
-    flujo_valor, flujo_dict = resolver_ford_fulkerson(grafo_actual, fuente, sumidero)
+    # podría recibir esto por parámetro para no recalcularlo
+    # pero como uso flujo_dict para trabajar abajo igual
+    # tendría que copiarlo
+    _, flujo_dict = resolver_ford_fulkerson(grafo_actual, fuente, sumidero)
     
-    # Obtener lista de aristas usadas, ordenadas por flujo (menor a mayor)
+    # lista de aristas usadas ordenadas por flujo de menor a mayor
     aristas_con_flujo = [(u, v, flujo_dict[u][v]) for u in flujo_dict 
                          for v in flujo_dict[u] if flujo_dict[u][v] > 0]
     aristas_con_flujo.sort(key=lambda x: x[2])
     
-    # Intentar eliminar cada arista
+    # intentar eliminar cada arista
     for u, v, _ in aristas_con_flujo:
         if u in grafo_actual and v in grafo_actual[u]:
 
             capacidad_original = grafo_actual[u][v]
             
-            # Eliminar arista
             del grafo_actual[u][v]
             if not grafo_actual[u]:
                 del grafo_actual[u]
             
-            # Verificar si aún alcanzamos el flujo objetivo
+            # verificar si aún alcanzamos el flujo objetivo
             try:
                 flujo_test, flujo_dict_test = resolver_ford_fulkerson(grafo_actual, fuente, sumidero)
                 
                 if flujo_test >= flujo_objetivo:
-                    # Podemos vivir sin esta arista
+                    # podemos vivir sin esta arista
                     flujo_dict = flujo_dict_test
                 else:
-                    # Necesitamos esta arista, restaurarla
+                    # necesitábamos esta arista
                     if u not in grafo_actual:
                         grafo_actual[u] = {}
                     grafo_actual[u][v] = capacidad_original
             except:
-                # Error al calcular flujo, restaurar arista
+                # por si borramos una arista importante
                 if u not in grafo_actual:
                     grafo_actual[u] = {}
                 grafo_actual[u][v] = capacidad_original
@@ -122,14 +125,13 @@ def minimizar_aristas_greedy(grafo, fuente, sumidero, flujo_objetivo):
     return flujo_dict
 
 def resolver_ejercicio_2(archivo, fuente=1, sumidero=10):
-    # Leer grafo
+    
     grafo = leer_grafo(archivo, fuente, sumidero)
     
-    # Primero obtener el flujo máximo posible
+    # obtengo el flujo máximo posible
     flujo_max, _ = resolver_ford_fulkerson(grafo, fuente, sumidero)
     print(f"Flujo máximo posible: {flujo_max}")
     
-    # Minimizar aristas según la estrategia elegida
     flujo_dict = minimizar_aristas_greedy(grafo, fuente, sumidero, flujo_max)
     
     flujo_valor = sum(flujo_dict.get(fuente, {}).values())
@@ -141,7 +143,6 @@ def main():
     fuente = 1
     sumidero = 10
 
-    # Determinar archivo de entrada
     if len(sys.argv) == 4:
         archivo_entrada = sys.argv[1]
         fuente = int(sys.argv[2])
@@ -152,6 +153,7 @@ def main():
     flujo_valor, flujo_dict = resolver_ejercicio_2(archivo_entrada, fuente, sumidero)
 
     # Contar cantidad de aristas usadas (con flujo > 0)
+    # por la libreria que usamos en realidad son todas las que existen en flujo_dict
     aristas_usadas = sum(1 for u in flujo_dict for v in flujo_dict[u] if flujo_dict[u][v] > 0)
 
     print(f"El flujo máximo desde el nodo {fuente} al nodo {sumidero} es: {flujo_valor}")
