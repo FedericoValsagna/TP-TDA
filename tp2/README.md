@@ -26,10 +26,15 @@ pip install -r requirements.txt
 ## Ejercicios
 
 ### Ejercicio 1 (Programación Lineal)
+**Prerequisito:** Instalar GLPK (GNU Linear Programming Kit)
+- Windows: Descargar de https://sourceforge.net/projects/winglpk/
+- Linux: `sudo apt-get install glpk-utils`
+- Mac: `brew install glpk`
+
 En carpeta `ej1/`
 - Modelo: `ej1.ltx`
 - Resultado: `resultado.txt`
-- Ejecutar con GLPK: `glpsol --lp ej1.ltx -o resultado.txt`
+- Ejecutar: `glpsol --lp ej1.ltx -o resultado.txt`
 
 ### Ejercicio 2 (Flujo de Redes)
 ```bash
@@ -46,6 +51,12 @@ python ejercicio_2.py grafico.csv 1 10
 ```bash
 cd ejercicio_3
 python main.py
+```
+
+### Ejercicio 4 (Prueba de Conocimiento Cero)
+```bash
+cd ejercicio_4
+python ej4.py
 ```
 
 ## Desactivar entorno virtual
