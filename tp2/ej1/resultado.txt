@@ -1,0 +1,99 @@
+Problem:    
+Rows:       35
+Columns:    40 (15 integer, 15 binary)
+Non-zeros:  100
+Status:     INTEGER OPTIMAL
+Objective:  obj = 12 (MINimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 r.6                        10            10             = 
+     2 r.7                        10            10             = 
+     3 r.8                         0             0             = 
+     4 r.9                         0             0             = 
+     5 r.10                        0             0             = 
+     6 r.11                        0             0             = 
+     7 r.12                        0             0             = 
+     8 r.13                        0             0             = 
+     9 r.14                        0             0             = 
+    10 r.15                        0             0             = 
+    11 r.17                        0                           0 
+    12 r.18                        0                           0 
+    13 r.19                        0                           0 
+    14 r.20                       -2                           0 
+    15 r.21                       -1                           0 
+    16 r.22                       -4                           0 
+    17 r.23                        0                           0 
+    18 r.24                        0                           0 
+    19 r.25                        0                           0 
+    20 r.26                       -3                           0 
+    21 r.27                        0                           0 
+    22 r.28                        0                           0 
+    23 r.29                        0                           0 
+    24 r.30                       -2                           0 
+    25 r.31                        0                           0 
+    26 r.32                        0                           0 
+    27 r.33                       -1                           0 
+    28 r.34                       -4                           0 
+    29 r.35                        0                           0 
+    30 r.36                       -2                           0 
+    31 r.37                        0                           0 
+    32 r.38                       -3                           0 
+    33 r.39                        0                           0 
+    34 r.40                        0                           0 
+    35 r.41                        0                           0 
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 Y12          *              1             0             1 
+     2 Y13          *              1             0             1 
+     3 Y25          *              1             0             1 
+     4 Y26          *              1             0             1 
+     5 Y29          *              0             0             1 
+     6 Y34          *              1             0             1 
+     7 Y35          *              0             0             1 
+     8 Y37          *              1             0             1 
+     9 Y47          *              0             0             1 
+    10 Y48          *              1             0             1 
+    11 Y57          *              1             0             1 
+    12 Y69          *              1             0             1 
+    13 Y710         *              1             0             1 
+    14 Y810         *              1             0             1 
+    15 Y910         *              1             0             1 
+    16 F12                         5             0               
+    17 F13                         5             0               
+    18 F710                        4             0               
+    19 F810                        3             0               
+    20 F910                        3             0               
+    21 F25                         2             0               
+    22 F52                         0             0               
+    23 F26                         3             0               
+    24 F62                         0             0               
+    25 F29                         0             0               
+    26 F92                         0             0               
+    27 F34                         3             0               
+    28 F43                         0             0               
+    29 F35                         0             0               
+    30 F53                         0             0               
+    31 F37                         2             0               
+    32 F73                         0             0               
+    33 F47                         0             0               
+    34 F74                         0             0               
+    35 F48                         3             0               
+    36 F84                         0             0               
+    37 F57                         2             0               
+    38 F75                         0             0               
+    39 F69                         3             0               
+    40 F96                         0             0               
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
