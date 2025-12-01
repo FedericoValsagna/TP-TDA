@@ -3,46 +3,52 @@
 ## Instalación
 
 ### 1. Crear entorno virtual
-
 ```bash
 python -m venv venv
 ```
 
 ### 2. Activar entorno virtual
-
 **Windows:**
 ```bash
 venv\Scripts\activate
 ```
-
 **Linux/Mac:**
 ```bash
 source venv/bin/activate
 ```
 
 ### 3. Instalar dependencias
-
 ```bash
+cd ejercicio_2
 pip install -r requirements.txt
 ```
 
-## Uso
+## Ejercicios
 
-### Ejercicio 2
+### Ejercicio 1 (Programación Lineal)
+En carpeta `ej1/`
+- Modelo: `ej1.ltx`
+- Resultado: `resultado.txt`
+- Ejecutar con GLPK: `glpsol --lp ej1.ltx -o resultado.txt`
 
+### Ejercicio 2 (Flujo de Redes)
 ```bash
-python ejercicio_2/ejercicio_2.py
+cd ejercicio_2
+python ejercicio_2.py
 ```
-
-O con un archivo específico:
-
+O con archivo específico:
 ```bash
-python ejercicio_2/ejercicio_2.py mi_grafo.csv 1 6
+python ejercicio_2.py grafico.csv 1 10
 ```
-Con 1 de nodo fuente y 6 sumidero.
+(1=nodo fuente, 10=nodo sumidero)
+
+### Ejercicio 3 (Next Fit)
+```bash
+cd ejercicio_3
+python main.py
+```
 
 ## Desactivar entorno virtual
-
 ```bash
 deactivate
 ```
